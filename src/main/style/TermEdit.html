@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="SystemSetUpPage">
+    <meta name="keywords" content="StudentApp/SystemSetUpPage">
+    <meta name="author" content="Carlos Ernesto Rodríguez Méndez">
+    <link rel="stylesheet" href="../../style/template/style.css">
+
+    <title>Document</title>
+    <!--Navabar-->
+    <style>
+      input[type="text"],
+select,
+textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  resize: vertical;
+}
+
+label {
+  padding: 12px 12px 12px 0;
+  display: inline-block;
+}
+
+input[type="submit"] {
+  background-color: #4caf50;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  float: right;
+}
+
+input[type="submit"]:hover {
+  background-color: #45a049;
+}
+
+.container {
+  border-radius: 5px;
+  background-color: #f2f2f2;
+  padding: 20px;
+}
+
+.col-25 {
+  float: left;
+  width: 25%;
+  margin-top: 6px;
+}
+
+.col-75 {
+  float: left;
+  width: 75%;
+  margin-top: 6px;
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/* Responsive layout - when the screen is less than 600px wide, make the two columns stack on top of each other instead of next to each other */
+@media screen and (max-width: 600px) {
+  .col-25,
+  .col-75,
+  input[type="submit"] {
+    width: 100%;
+    margin-top: 0;
+  }
+}
+
+    </style>
+    <div class="navbar">
+      <a href="../index.html">Home</a>
+      <a href="#news">About</a>
+      <div class="dropdown">
+        <button class="dropbtn">Administer
+          <i class="fa fa-caret-down"></i>
+        </button>
+        <div class="dropdown-content">
+          <a href="./SystemSetUp.html">SystemSetUp</a>
+          <a href="./CreateStudent.html">Create Student information</a>
+          <a href="./JobForm.html">Student Job Form</a>
+          <a href="./TermEdit.html">Semesters</a>
+          <a href="./Tables/StudentTable.html">Review Student Information</a>
+       
+        
+        </div>
+      </div>
+      <div class="dropdown">
+        <button class="dropbtn">Company
+          <i class="fa fa-caret-down"></i>
+        </button>
+        <div class="dropdown-content">
+          <a href="./../Tables/JobFormTable.html"> Review StudentJobCompany</a>
+          <a href="./../Tables/ComapanyInfoTable.html">Review Company Table</a>
+          <a href="./../Tables/DepartmentTable.html">Department Table</a>
+          <a href="./../Reports/Reports.html">Reports</a>
+        
+
+        </div>
+       
+      </div>
+    </div>
+
+  </head>
+  <body>
+    <h2>Academic Term</h2>
+    <form onsubmit="event.preventDefault(); onFormSubmit();"
+      autocomplete="off">
+      <div class="container">
+      
+        <div class="row">
+          <div class="col-25">
+            <label for="lname">Current Semester:</label>
+          </div>
+          <div class="col-75">
+            <input list="term" name="currentSemester" id="currerntSemester"
+            placeholder="Choose current Academic Term">
+            <datalist id="term">
+            <option value="August - December 2021-4949">
+            <option value="Janauray - May 2022-2920">
+            <option value="June 2022-2929">
+                </datalist>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-25">
+            <label for="subject">Status</label>
+          </div>
+          <div class="col-75">
+            <input type="radio" id="status-active" name="status"
+            value="Active">
+          <label for="status">ACTIVE</label>
+          <input type="radio" id="status-inactive" name="status"
+            value="Inactive">
+          <label for="status-inactive">INACTIVE</label>
+          </div>
+        </div>
+       
+        <div class="row">
+         <button onclick="location.href='../Tables/termTable.html'"
+              type="submit">Save</button>
+         
+         
+        </div>
+      </form>
+      <?php
+      //require_once'backend/dbConnection.php'; error
+//require_once'backend/DataBase.php'; error
+
+
+$dbhost="localhost";
+$dbuser="administer";
+$dbpassword="r7NpgqkxVSALtbr";
+$dbname = "studentapp";
+$conn = new mysqli($dbhost,$dbuser,$dbpassword,$dbname);
+
+if(mysqli_connect_error()){
+die("Connection failed:".mysqli_connect_error());
+
+}else{
+echo "Connect successfully";
+}
+
+
+// $sql = "CREATE DATABASE StudentApp";
+// if($conn->query($sql) == TRUE){
+//   echo "Database created successfully";
+// }else{
+//   echo "Error creating database:".$conn->error;
+
+// }
+
+
+
+
+$table="CREATE TABLE COMPANY(
+companyId  INT  PRIMARY KEY,
+companyName VARCHAR(50), 
+companyStatus VARCHAR(8), 
+companyBoss VARCHAR(50),
+companyBossTitle VARCHAR(10), 
+companyPhone VARCHAR(12), 
+companyEmail VARCHAR(50), 
+companyWebPage VARCHAR(50), 
+companyComment VARCHAR(35), 
+departmentName VARCHAR(35)
+
+
+)";
+
+
+if($conn->query($table) == TRUE){
+echo "SystemSetUp Table created successully";
+}else{
+echo "Error creating table:".$conn->error;
+}
+
+
+
+
+//   //$administerID=filter_input(INPUT_POST, 'administerID');
+//   $universityName=$_POST(INPUT_POST, 'universityName');
+//   $campusName=$_POST(INPUT_POST, 'campusName');
+//   $campusEmail=$_POST(INPUT_POST, 'campusEmail');
+//   $campusPhone=$_POST(INPUT_POST, 'campusPhone');
+//   $campusAddress=$_POST(INPUT_POST, 'campusAddress');
+//   $universityTerm=$_POST(INPUT_POST, 'universityTerm');
+//   $professorName=$_POST(INPUT_POST, 'professorName');
+//   $professorPhone=$_POST(INPUT_POST, 'professorPhone');
+//   $professorEmail=$_POST(INPUT_POST, 'professorEmail');
+//   $professorPosition=$_POST(INPUT_POST, 'professorPosition');
+//   $universityLogo=$_POST(INPUT_POST, 'universityLogo');
+
+
+
+
+// // //send data 
+
+
+// // //INSERT DATA
+
+// $sql =  "INSERT INTO SystemSetUp(universityName,campusName,campusEmail,campusPhone,campusAddress,universityTerm,professorName,professorPhone,professorEmail,professorPosition)
+// VALUES('$universityName','$campusName','$campusEmail','$campusPhone','$campusAddress','$universityTerm','$professorName','$professorPhone','$professorEmail','$professorPosition')";
+
+// if( $conn->query($sql) == TRUE){
+//   echo "New record created successfully";
+// }else{
+//   echo "Error:".$sql."<br>".$conn->error;
+// }
+
+
+//send data 
+
+
+
+
+
+?>
+
+    </body>
+  </html>
